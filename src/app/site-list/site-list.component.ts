@@ -14,6 +14,8 @@ siteImgUrl !:string;
 siteUrl !:string;
 siteId !:string;
 formStatus:string = "Add New"
+isSuccess:boolean =false
+successMsg!:string
 
   constructor(private passwordManagerService:PasswordManagerService){
 
@@ -22,19 +24,30 @@ formStatus:string = "Add New"
 
   ngOnInit():void{}
 
+  showAlert(message:string){
+    this.isSuccess =true
+    this.successMsg = message
+  }
+
 
   onSubmit(values: object) {
 
     if(this.formStatus==='Add New'){
       this.passwordManagerService.addSite(values).then(()=>{
-        console.log('Saved success')
+        this.showAlert('Site Added Successfully')
+        setTimeout(()=>{
+          this.isSuccess = false
+        },1500)
       })
       .catch(err=>{
         console.log(err)
       })
     }else if(this.formStatus==='Edit'){
       this.passwordManagerService.updateSite(this.siteId,values).then(()=>{
-        console.log('Edited success')
+        this.showAlert('Site Edited Successfully')
+        setTimeout(()=>{
+          this.isSuccess = false
+        },1500)
       })
       .catch(err=>{
         console.log(err)
@@ -61,7 +74,10 @@ formStatus:string = "Add New"
 
   deleteSite(id:string){
     this.passwordManagerService.deleteSite(id).then(()=>{
-      console.log('Deleted success')
+      this.showAlert('Site Deleted Successfully')
+      setTimeout(()=>{
+        this.isSuccess = false
+      },1500)
     })
     .catch(err=>{
       console.log(err)

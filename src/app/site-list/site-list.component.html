@@ -7,6 +7,10 @@
     Add New Site
   </button>
 
+  <div *ngIf="isSuccess" class="p-5 my-3 bg-teal-100 text-teal-900">
+   {{successMsg}}
+  </div>
+
   <div class="px-20 py-10 mb-10 my-5 border-4 border-gray-900">
     <h2 class="text-3xl text-center "> {{formStatus}} Site </h2>
     <p class="text-center"> You can add a new site from the below form </p>
