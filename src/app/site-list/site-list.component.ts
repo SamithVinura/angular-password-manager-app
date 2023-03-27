@@ -10,6 +10,11 @@ export class SiteListComponent {
 
   constructor(private passwordManager:PasswordManagerService){}
   onSubmit(values: object) {
-    this.passwordManager.addSite(values)
+    this.passwordManager.addSite(values).then(()=>{
+      console.log('saved success')
+    })
+    .catch(err=>{
+      console.log(err)
+    })
   }
 }
