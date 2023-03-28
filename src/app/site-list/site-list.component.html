@@ -47,7 +47,7 @@
       </div>
       <button class="my-3 ml-3 mx-0.5 px-5 py-3 text-sm border-2 bg-gray-900
         text-white
-        shadow rounded-md">Add New Password</button>
+        shadow rounded-md" routerLink="/password-list" [queryParams]="{id:site.id,siteName:site.siteName,siteUrl:site.siteUrl,siteimgUrl:site.siteimgUrl}">Add New Password</button>
 
         <button class="my-3 mx-0.5 px-5 py-3 text-sm border-2 border-gray-900
         text-gray-900 shadow rounded-md" (click)="editSite(site.siteName,site.siteimgUrl,site.siteUrl,site.id)">Edit</button>
