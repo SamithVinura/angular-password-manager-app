@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Firestore,collection,addDoc,collectionData, doc,updateDoc,deleteDoc } from '@angular/fire/firestore';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class PasswordManagerService {
+
 
   constructor(private firestore:Firestore) { }
 
@@ -51,5 +50,6 @@ export class PasswordManagerService {
     return deleteDoc(docInstance)
 
   }
+
 
 }
