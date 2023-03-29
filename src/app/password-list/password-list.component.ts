@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PasswordManagerService } from '../password-manager.service';
 
 @Component({
   selector: 'app-password-list',
@@ -13,7 +14,7 @@ export class PasswordListComponent {
   siteUrl!:string;
   siteimgUrl!:string
 
-  constructor(private route:ActivatedRoute){
+  constructor(private route:ActivatedRoute,private passwordManagerService:PasswordManagerService){
     this.route.queryParams.subscribe((val:any)=>{
       this.siteId = val.id
       this.siteName = val.siteName
@@ -24,7 +25,11 @@ export class PasswordListComponent {
   }
 
   onSubmit(values:object){
-    console.log(values)
+    this.passwordManagerService.addPassword(values,this.siteId).then(()=>{
+      console.log("Password save successfully")
+    }).catch(err=>{
+      console.log(err)
+    })
   }
 
 }

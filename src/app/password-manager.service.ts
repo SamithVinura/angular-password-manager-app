@@ -30,4 +30,9 @@ export class PasswordManagerService {
     return deleteDoc(docInstance)
 
   }
+
+  addPassword(data:object,id:string){
+    const dbInstance = collection(this.firestore,`sites/${id}/passwords`)
+    return addDoc(dbInstance,data)
+  }
 }
