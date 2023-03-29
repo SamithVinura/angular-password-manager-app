@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
 import { PasswordManagerService } from '../password-manager.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class PasswordListComponent {
   siteUrl!:string;
   siteimgUrl!:string
 
+  passwordList!:Observable<Array<any>>
+
   constructor(private route:ActivatedRoute,private passwordManagerService:PasswordManagerService){
     this.route.queryParams.subscribe((val:any)=>{
       this.siteId = val.id
@@ -22,6 +25,9 @@ export class PasswordListComponent {
       this.siteimgUrl = val.siteimgUrl
 
     })
+
+    this.loadPasswords()
+
   }
 
   onSubmit(values:object){
@@ -30,6 +36,10 @@ export class PasswordListComponent {
     }).catch(err=>{
       console.log(err)
     })
+  }
+
+  loadPasswords(){
+   this.passwordList = this.passwordManagerService.loadPasswords(this.siteId)
   }
 
 }

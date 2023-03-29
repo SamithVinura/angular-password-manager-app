@@ -35,4 +35,9 @@ export class PasswordManagerService {
     const dbInstance = collection(this.firestore,`sites/${id}/passwords`)
     return addDoc(dbInstance,data)
   }
+
+  loadPasswords(siteId:string){
+    const dbInstance = collection(this.firestore,`sites/${siteId}/passwords`)
+    return collectionData(dbInstance,{idField:'id'})
+  }
 }
