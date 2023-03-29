@@ -17,6 +17,13 @@ export class PasswordListComponent {
 
   passwordList!:Observable<Array<any>>
 
+  email!:string;
+  username!:string;
+  password!:string;
+  passwordId!:string
+
+  formStatus:string = 'Add New'
+
   constructor(private route:ActivatedRoute,private passwordManagerService:PasswordManagerService){
     this.route.queryParams.subscribe((val:any)=>{
       this.siteId = val.id
@@ -31,15 +38,34 @@ export class PasswordListComponent {
   }
 
   onSubmit(values:object){
-    this.passwordManagerService.addPassword(values,this.siteId).then(()=>{
-      console.log("Password save successfully")
-    }).catch(err=>{
-      console.log(err)
-    })
+
+    if(this.formStatus ==="Add New"){
+      this.passwordManagerService.addPassword(values,this.siteId).then(()=>{
+        console.log("Password save successfully")
+      }).catch(err=>{
+        console.log(err)
+      })
+    }else{
+      this.passwordManagerService.updatePassword(this.siteId,this.passwordId,values).then(()=>{
+        console.log("Password save successfully")
+      }).catch(err=>{
+        console.log(err)
+      })
+    }
+
   }
 
   loadPasswords(){
    this.passwordList = this.passwordManagerService.loadPasswords(this.siteId)
+  }
+
+  editPassword(email:string,username:string,password:string,passwordId:string){
+    this.email = email;
+    this.username =username
+    this.password =password
+    this.passwordId =passwordId
+
+    this.formStatus = 'Edit'
   }
 
 }
