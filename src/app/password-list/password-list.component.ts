@@ -24,6 +24,10 @@ export class PasswordListComponent {
 
   formStatus:string = 'Add New'
 
+  isSuccess:boolean =false
+  successMsg!:string
+
+
   constructor(private route:ActivatedRoute,private passwordManagerService:PasswordManagerService){
     this.route.queryParams.subscribe((val:any)=>{
       this.siteId = val.id
@@ -37,17 +41,29 @@ export class PasswordListComponent {
 
   }
 
+  showAlert(message:string){
+    this.isSuccess =true
+    this.successMsg = message
+  }
+
   onSubmit(values:object){
 
     if(this.formStatus ==="Add New"){
       this.passwordManagerService.addPassword(values,this.siteId).then(()=>{
-        console.log("Password save successfully")
+        this.showAlert('Password Added Successfully')
+        setTimeout(()=>{
+          this.isSuccess = false
+        },1500)
       }).catch(err=>{
         console.log(err)
       })
     }else{
       this.passwordManagerService.updatePassword(this.siteId,this.passwordId,values).then(()=>{
-        console.log("Password save successfully")
+        this.showAlert('Password Edited Successfully')
+        setTimeout(()=>{
+          this.isSuccess = false
+        },1500)
+        this.resetForm()
       }).catch(err=>{
         console.log(err)
       })
@@ -66,6 +82,26 @@ export class PasswordListComponent {
     this.passwordId =passwordId
 
     this.formStatus = 'Edit'
+  }
+
+  deletePassword(passwordId:string){
+    this.passwordManagerService.deletepassword(this.siteId,passwordId).then(()=>{
+      this.showAlert('Password Deleted Successfully')
+      setTimeout(()=>{
+        this.isSuccess = false
+      },1500)
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
+
+  resetForm(){
+    this.email = ''
+    this.username =''
+    this.password =''
+    this.passwordId =''
+
+    this.formStatus='Add New'
   }
 
 }
