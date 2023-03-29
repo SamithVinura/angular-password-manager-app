@@ -16,7 +16,7 @@ export class PasswordListComponent {
   siteUrl!:string;
   siteimgUrl!:string
 
-  passwordList!:Observable<Array<any>>
+  passwordList!:Array<any>
 
   email!:string;
   username!:string;
@@ -75,7 +75,9 @@ export class PasswordListComponent {
   }
 
   loadPasswords(){
-   this.passwordList = this.passwordManagerService.loadPasswords(this.siteId)
+   this.passwordManagerService.loadPasswords(this.siteId).subscribe((val:any) => {
+    this.passwordList = val
+   })
   }
 
   editPassword(email:string,username:string,password:string,passwordId:string){
@@ -113,4 +115,14 @@ export class PasswordListComponent {
     return encryptedPassword
   }
 
+  decryptPassword(password:string){
+    const secretKey = 'eSgVkYp3s6v9y$B&E)H@McQfTjWmZq4t'
+    const decryptPassword = AES.decrypt(password,secretKey).toString(enc.Utf8)
+    return decryptPassword
+  }
+
+  onDecrypt(password:string,index:number){
+    const dePassword = this.decryptPassword(password)
+    this.passwordList[index].password = dePassword
+  }
 }
