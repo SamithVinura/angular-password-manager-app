@@ -11,6 +11,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SiteListComponent } from './site-list/site-list.component';
 import { PasswordListComponent } from './password-list/password-list.component';
 import { LoginComponent } from './login/login.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { ToastrModule, ToastNoAnimationModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,9 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    AngularFireAuthModule,
+    ToastrModule.forRoot(),
+    ToastNoAnimationModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())

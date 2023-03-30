@@ -1,6 +1,6 @@
-<section class="bg-gray-58">
+<section class="bg-gray-50 grid grid-cols-1">
   <div
-    class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen"
+    class="flex flex-col  items-center justify-center px-6 py-8 mx-auto h-screen"
   >
     <div
       class="w-full border-2 border-gray-900 bg-white rounded-lg shadow mx-W-md"
@@ -9,12 +9,17 @@
         <h1 class="text-2xl font-bold Otext-gray-900">
           Log in to your account
         </h1>
-        <form class="space-y-6">
+
+        <div *ngIf="!isError" class="p-5 my-3 bg-red-100 text-red-900">
+          Username or Password is invalid
+        </div>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="space-y-6">
           <div>
             <label class="block mb-2 text-sm font-medium text-gray-980">
               Your Email
             </label>
             <input
+            ngModel
               type="email"
               name="email"
               placeholder="name@company.com"
@@ -26,6 +31,7 @@
               Password
             </label>
             <input
+            ngModel
               type="password"
               name="password"
               placeholder="**********"
