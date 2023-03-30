@@ -6,7 +6,7 @@ import { PasswordListComponent } from './password-list/password-list.component';
 import { SiteListComponent } from './site-list/site-list.component';
 
 const routes: Routes = [
-  {path:'',component:NavbarComponent},
+  {path:'',component:LoginComponent},
   {path:'site-list',component:SiteListComponent},
   {path:'password-list',component:PasswordListComponent},
 
